@@ -25,7 +25,6 @@ public class Main {
             while (rs.next()) {
                 System.out.println ("ID : " + rs.getInt(1) + "\tName : " + rs.getString(2) + "\tDomain : " + rs.getString(3));
             }
-
 //            pr.setInt(1, sc.nextInt());
 //            sc.nextLine(); // Clear scanner buffer
 //            pr.setString(2, sc.nextLine());
