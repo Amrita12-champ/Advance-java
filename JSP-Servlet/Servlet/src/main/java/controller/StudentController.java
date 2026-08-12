@@ -14,6 +14,8 @@ public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        System.out.println("Hiii.... am successfully working ");
+
         String id=req.getParameter("id");
         String name=req.getParameter("Username");
         String email=req.getParameter("Email");
