@@ -2,10 +2,7 @@ package dao;
 
 import entity.Student;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class StudentService {
     Connection con;
@@ -25,7 +22,7 @@ public class StudentService {
     }
 
     public int register(Student student) {
-        String sql = "INSERT INTO studentdata VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO studentdata VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement prt = con.prepareStatement(sql);
 
@@ -33,11 +30,38 @@ public class StudentService {
             prt.setString(2, student.getName());
             prt.setString(3, student.getEmail());
             prt.setString(4, student.getRedgNo());
+            prt.setString(5,student.getPassword());
 
             return prt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Student validateStudent(String email, String password) {
+        Student student = null;
+        String sql = "SELECT * FROM studentdata WHERE email = ? AND password = ?";
+
+        try {
+            PreparedStatement prt = con.prepareStatement(sql);
+            prt.setString(1, email);
+            prt.setString(2, password);
+
+            ResultSet rs = prt.executeQuery();
+
+            if (rs.next()) {
+                student = new Student();
+                student.setId(rs.getInt(1));           // or rs.getInt("id")
+                student.setName(rs.getString(2));       // or rs.getString("name")
+                student.setEmail(rs.getString(3));      // or rs.getString("email")
+                student.setRedgNo(rs.getString(4));     // or rs.getString("redgNo")
+                student.setPassword(rs.getString(5));   // or rs.getString("password")
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return student;
     }
 }

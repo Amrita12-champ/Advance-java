@@ -10,16 +10,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 @WebServlet("/register")
-public class StudentController extends HttpServlet {
+public class RegisterController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost
+            (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("Hiii.... am successfully working ");
+        System.out.println("Hiii...am successfully working ");
 
         String id=req.getParameter("id");
         String name=req.getParameter("Username");
         String email=req.getParameter("Email");
         String redgNo =req.getParameter("redg");
+        String password=req.getParameter("password");
 
         Student student=new Student();
 
@@ -27,10 +29,12 @@ public class StudentController extends HttpServlet {
         student.setName(name);
         student.setEmail(email);
         student.setRedgNo(redgNo);
+        student.setPassword(password);
 
         StudentService service=new StudentService();
         int result=service.register(student);
         if(result>0){
+            resp.sendRedirect("login.html");
             System.out.println("Student register Successfully");
         }else{
             System.out.println("Student registration fail");

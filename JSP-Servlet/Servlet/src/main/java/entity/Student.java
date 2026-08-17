@@ -5,15 +5,18 @@ public class Student {
     private String name;
     private String email;
     private String redgNo;
+    private String password;
 
     public Student() {
     }
 
-    public Student(int id, String name, String email, String redgNo) {
+    public Student(int id, String name, String email, String redgNo, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.redgNo = redgNo;
+        this.password=password;
+
     }
 
     public int getId() {
@@ -48,4 +51,11 @@ public class Student {
         this.redgNo = redgNo;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
