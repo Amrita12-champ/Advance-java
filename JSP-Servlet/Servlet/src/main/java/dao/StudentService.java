@@ -52,11 +52,11 @@ public class StudentService {
 
             if (rs.next()) {
                 student = new Student();
-                student.setId(rs.getInt(1));           // or rs.getInt("id")
-                student.setName(rs.getString(2));       // or rs.getString("name")
-                student.setEmail(rs.getString(3));      // or rs.getString("email")
-                student.setRedgNo(rs.getString(4));     // or rs.getString("redgNo")
-                student.setPassword(rs.getString(5));   // or rs.getString("password")
+                student.setId(rs.getInt(1));
+                student.setName(rs.getString(2));
+                student.setEmail(rs.getString(3));
+                student.setRedgNo(rs.getString(4));
+                student.setPassword(rs.getString(5));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
