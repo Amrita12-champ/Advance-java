@@ -4,10 +4,7 @@ import dao.StudentService;
 import entity.Student;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 @WebServlet("/login")
@@ -28,7 +25,10 @@ public class LoginController extends HttpServlet {
 
         if (validStudent != null) {
             System.out.println("Login successfully for: " + validStudent.getName());
-            resp.sendRedirect("Home.html");
+            Cookie cookie=new Cookie("email", email); //utiliy class Cookie
+            cookie.setMaxAge(60*60); //set cookie for 30 minute
+            resp.addCookie(cookie);
+            resp.sendRedirect("Home.jsp");
 
 
         } else {
