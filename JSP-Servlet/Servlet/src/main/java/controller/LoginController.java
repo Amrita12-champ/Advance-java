@@ -25,11 +25,16 @@ public class LoginController extends HttpServlet {
 
         if (validStudent != null) {
             System.out.println("Login successfully for: " + validStudent.getName());
-            Cookie cookie=new Cookie("email", email); //utiliy class Cookie
-            cookie.setMaxAge(60*60); //set cookie for 30 minute
-            resp.addCookie(cookie);
-            resp.sendRedirect("Home.jsp");
+//            Cookie cookie=new Cookie("email", email); //utiliy class Cookie
+//            cookie.setMaxAge(60*60); //set cookie for 30 minute
+//            resp.addCookie(cookie);
+//            resp.sendRedirect("Home.jsp");
 
+            HttpSession session=req.getSession();
+            session.setAttribute("email", email);
+            session.setAttribute("name", validStudent.getName());
+            session.setAttribute("regdno", validStudent.getRedgNo());
+            resp.sendRedirect("Home.jsp");
 
         } else {
             System.out.println("Login failed: Invalid email or password");

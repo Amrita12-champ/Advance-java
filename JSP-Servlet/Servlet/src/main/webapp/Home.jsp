@@ -1,22 +1,33 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AMRITA
-  Date: 01-09-2026
-  Time: 15:03
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
 </head>
+
 <body>
-<% Cookie []cokkie=request.getCookies();
-String name=null;
-for(Cookie ck : cokkie){
-    if("email".equals(ck.getName()))
-}
-<% String username= "Amrita"; %>
-<h1><%=username%> </h1>
+
+<%
+    HttpSession hs = request.getSession(false);
+
+    String email = null;
+    String name = null;
+    String regdno = null;
+
+    if (hs != null) {
+        email = (String) hs.getAttribute("email");
+        name = (String) hs.getAttribute("name");
+        regdno = (String) hs.getAttribute("regdno");
+    } else {
+        response.sendRedirect("login.html");
+        return;
+    }
+%>
+
+<h1>Welcome <%= name %></h1>
+
+<p>Email: <%= email %></p>
+<p>Registration No: <%= regdno %></p>
+
 </body>
 </html>
