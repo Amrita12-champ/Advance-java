@@ -20,7 +20,6 @@ public class StudentDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     // Get Name By ID
@@ -39,9 +38,7 @@ public class StudentDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
     // Get All
     public void getAllStudents() {
         try {
@@ -54,7 +51,6 @@ public class StudentDAO {
                 System.out.println("Email : " + rs.getString("email"));
                 System.out.println("Course : " + rs.getString("course"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

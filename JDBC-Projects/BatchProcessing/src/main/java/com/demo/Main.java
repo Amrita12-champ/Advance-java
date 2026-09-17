@@ -14,7 +14,6 @@ public class Main{
                     "a34862@TKRS");
 
             String sql="INSERT INTO employee_data VALUES(?,?,?,?)";
-
             PreparedStatement ps=con.prepareStatement(sql);
 //            ps.setInt(1, 43);
 //            ps.setString(2, "Amrita Swain");
