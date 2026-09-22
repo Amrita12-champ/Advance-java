@@ -6,16 +6,14 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
     static Scanner sc = new Scanner(System.in);
-
-    static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("myPersistenceUnit");
-
+    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPersistenceUnit");
     static EntityManager em = emf.createEntityManager();
+    static EntityTransaction et = em.getTransaction();
 
     public static void main(String[] args) {
 
@@ -35,6 +33,7 @@ public class Main {
             System.out.println("2: Update Student");
             System.out.println("3: Get student by id");
             System.out.println("4: Delete Student");
+            System.out.println("5: Show all Students");
             System.out.println("0: Exit");
 
             choice = sc.nextInt();
@@ -55,6 +54,10 @@ public class Main {
                 case 4:
                     deleteStudent();
                     break;
+
+                case 5:
+                    showAllStudents();
+                    break;
             }
 
         } while (choice != 0);
@@ -73,7 +76,7 @@ public class Main {
         String course = sc.nextLine();
 
         Student s1 = new Student(id, name, course);
-        EntityTransaction et = em.getTransaction();
+
         et.begin();
         em.persist(s1);
         et.commit();
@@ -96,7 +99,6 @@ public class Main {
             s1.setName(name);
             s1.setCourse(course);
 
-            EntityTransaction et = em.getTransaction();
             et.begin();
             em.merge(s1);
             et.commit();
@@ -119,6 +121,27 @@ public class Main {
         }
     }
 
-    static void deleteStudent() {
+    static void deleteStudent(){
+        System.out.print("Enter ID: ");
+        int id= sc.nextInt();
+        Student student = em.find(Student.class, id);
+
+        if(student!=null) {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+            em.remove(student);
+            et.commit();
+            System.out.println("Student Deleted Successfully");
+        } else {
+            System.out.println("Student Not Found");
+        }
+    }
+
+    static void showAllStudents(){
+        List<Student> students = em.createQuery("from Student", Student.class).getResultList();
+        System.out.println("-------Students List------");
+        for (Student student : students) {
+            System.out.println(student);
+        }
     }
 }
