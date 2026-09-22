@@ -1,10 +1,7 @@
 package com.example;
 
 import Entity.Student;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,6 +31,7 @@ public class Main {
             System.out.println("3: Get student by id");
             System.out.println("4: Delete Student");
             System.out.println("5: Show all Students");
+            System.out.println("6: Show students whose name start with perticular character");
             System.out.println("0: Exit");
 
             choice = sc.nextInt();
@@ -58,9 +56,13 @@ public class Main {
                 case 5:
                     showAllStudents();
                     break;
+                case 6:
+                    nameStrtsWith();
+                    break;
+
             }
 
-        } while (choice != 0);
+        }while(choice!=0);
     }
 
     static void addStudent() {
@@ -137,10 +139,18 @@ public class Main {
         }
     }
 
-    static void showAllStudents(){
-        List<Student> students = em.createQuery("from Student", Student.class).getResultList();
-        System.out.println("-------Students List------");
-        for (Student student : students) {
+    static void showAllStudents() {
+        Query query = em.createQuery("select s from Student s");
+        List<Student>stdlist = query.getResultList();
+        for (Student student : stdlist) {
+            System.out.println(student);
+        }
+    }
+    static void nameStrtsWith(){
+        Query qry = em.createQuery("select s from Student s where s.name LIKE :match");
+        qry.setParameter("match", "p%");
+        List<Student> stdlist2 = qry.getResultList();
+        for (Student student : stdlist2) {
             System.out.println(student);
         }
     }
